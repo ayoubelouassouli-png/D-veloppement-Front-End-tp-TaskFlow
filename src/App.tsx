@@ -7,7 +7,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 export default function App() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<LoginMUI />} />
 
       <Route
         path="/dashboard"
@@ -31,6 +31,7 @@ import { useAuth } from './features/auth/AuthContext';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import MainContent from './components/MainContent';
+import LoginMUI from "./features/auth/LoginMUI";
 // interface Project { id: string; name: string; color: string; }
 // interface Column { id: string; title: string; tasks: string[]; }
 // export default function App() {
