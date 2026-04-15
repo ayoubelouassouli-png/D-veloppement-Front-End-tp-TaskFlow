@@ -6,58 +6,46 @@
 }
 
 .input {
-  padding: 0.48rem 0.85rem;
-  border: 1.5px solid #ddd;
-  border-radius: 7px;
-  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.9rem;
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border 0.2s;
   min-width: 180px;
 }
-
-.input:focus {
-  border-color: #1B8C3E;
-  box-shadow: 0 0 0 3px rgba(27, 140, 62, 0.1);
-}
+.input:focus { border-color: #1B8C3E; }
 
 .colorPicker {
   width: 40px;
   height: 36px;
-  border: 1.5px solid #ddd;
-  border-radius: 7px;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  padding: 2px;
-  background: white;
+  padding: 0;
 }
 
 .submit {
-  padding: 0.48rem 1rem;
+  padding: 0.5rem 1rem;
   background: #1B8C3E;
   color: white;
   border: none;
-  border-radius: 7px;
-  font-size: 0.875rem;
-  font-weight: 600;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.18s;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s;
 }
-
-.submit:hover {
-  background: #157a33;
-}
+.submit:hover { background: #157a33; }
 
 .cancel {
-  padding: 0.48rem 1rem;
-  background: #f0f0f0;
+  padding: 0.5rem 1rem;
+  background: #e0e0e0;
   color: #555;
-  border: 1px solid #ddd;
-  border-radius: 7px;
-  font-size: 0.875rem;
-  font-weight: 500;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.15s;
+  font-size: 0.9rem;
+  transition: background 0.2s;
 }
-
-.cancel:hover {
-  background: #e4e4e4;
-}
+.cancel:hover { background: #d0d0d0; }

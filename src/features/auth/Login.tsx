@@ -1,13 +1,30 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+
+// ANCIEN (Context API)
+// import { useAuth } from "./AuthContext";
+
 import api from "../../api/axios";
 import styles from "./Login.module.css";
+
+// NOUVEAU (Redux Toolkit)
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState, AppDispatch } from "../../store";
+import { loginStart, loginSuccess, loginFailure } from "./authSlice";
 
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { state, dispatch } = useAuth();
+
+  // ANCIEN
+  // const { state, dispatch } = useAuth();
+
+  // NOUVEAU
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { user, loading, error } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,34 +32,56 @@ export default function Login() {
   const from = (location.state as any)?.from || "/dashboard";
 
   useEffect(() => {
-    //  if (state.user) navigate(from); // BUG
-    if (state.user) navigate(from, { replace: true });
-  }, [state.user, navigate, from]);
+    if (user) navigate(from, { replace: true });
+  }, [user, navigate, from]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    dispatch({ type: "LOGIN_START" });
+    // ANCIEN
+    // dispatch({ type: "LOGIN_START" });
+
+    // NOUVEAU
+    dispatch(loginStart());
 
     try {
       const { data: users } = await api.get(`/users?email=${email}`);
 
       if (users.length === 0 || users[0].password !== password) {
-        dispatch({
-          type: "LOGIN_FAILURE",
-          payload: "Email ou mot de passe incorrect",
-        });
+        // ANCIEN
+        // dispatch({ type: "LOGIN_FAILURE", payload: "..." });
+
+        // NOUVEAU
+        dispatch(loginFailure("Email ou mot de passe incorrect"));
         return;
       }
 
-      const { password: _, ...user } = users[0];
+      const { password: _, ...userData } = users[0];
 
-      dispatch({ type: "LOGIN_SUCCESS", payload: user });
+      const fakeToken = btoa(
+        JSON.stringify({
+          userId: userData.id,
+          email: userData.email,
+          role: "admin",
+          exp: Date.now() + 3600000,
+        })
+      );
+
+      // ANCIEN
+      // dispatch({ type: "LOGIN_SUCCESS", payload: { ...userData, token: fakeToken } });
+
+      // ANCIEN BUG
+      // dispatch({ type: "LOGIN_SUCCESS", payload: userData });
+
+      // NOUVEAU
+      dispatch(loginSuccess({ user: userData, token: fakeToken }));
+
     } catch {
-      dispatch({
-        type: "LOGIN_FAILURE",
-        payload: "Erreur serveur",
-      });
+      // ANCIEN
+      // dispatch({ type: "LOGIN_FAILURE", payload: "Erreur serveur" });
+
+      // NOUVEAU
+      dispatch(loginFailure("Erreur serveur"));
     }
   }
 
@@ -51,88 +90,28 @@ export default function Login() {
       <form className={styles.form} onSubmit={handleSubmit}>
         <h1>TaskFlow</h1>
 
-        {state.error && <div className={styles.error}>{state.error}</div>}
+        {error && <div className={styles.error}>{error}</div>}
 
         <input
           type="email"
-          placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
           required
         />
 
         <input
           type="password"
-          placeholder="Mot de passe"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          placeholder="Mot de passe"
           required
         />
 
-        <button disabled={state.loading}>
-          {state.loading ? "Connexion..." : "Se connecter"}
+        <button disabled={loading}>
+          {loading ? "Connexion..." : "Se connecter"}
         </button>
       </form>
     </div>
   );
 }
-
-// // src/features/auth/Login.tsx
-// import { useState } from 'react';
-// import { useAuth } from './AuthContext';
-// import styles from './Login.module.css';
-// export default function Login() {
-//  const { state, dispatch } = useAuth();
-//  const [email, setEmail] = useState('');
-//  const [password, setPassword] = useState('');
-//  async function handleSubmit(e: React.FormEvent) {
-//  e.preventDefault();
-//  dispatch({ type: 'LOGIN_START' });
-//  try {
-//  const res = await fetch(
-//  `http://localhost:4000/users?email=${email}`
-//  );
-//  const users = await res.json();
-//  if (users.length === 0 || users[0].password !== password) {
-//  dispatch({ type: 'LOGIN_FAILURE', payload: 'Email ou mot de passe incorrect' });
-//  return;
-//  }
-//  const { password: _, ...user } = users[0];
-//  dispatch({ type: 'LOGIN_SUCCESS', payload: user });
-//  } catch {
-//  dispatch({ type: 'LOGIN_FAILURE', payload: 'Erreur de connexion au serveur' });
-//  }
-//  }
-//  return (
-//  <div className={styles.container}>
-//  <form className={styles.form} onSubmit={handleSubmit}>
-//  <h1 className={styles.title}>TaskFlow</h1>
-//  <p className={styles.subtitle}>Connectez-vous pour continuer</p>
-//  {state.error && <div className={styles.error}>{state.error}</div>}
-//  <input
-//  type="email"
-//  placeholder="Email"
-//  value={email}
-//  onChange={e => setEmail(e.target.value)}
-//  className={styles.input}
-//  required
-//  />
-//  <input
-//  type="password"
-//  placeholder="Mot de passe"
-//  value={password}
-//  onChange={e => setPassword(e.target.value)}
-//  className={styles.input}
-//  required
-//  />
-//  <button
-//  type="submit"
-//  className={styles.button}
-//  disabled={state.loading}
-//  >
-//  {state.loading ? 'Connexion...' : 'Se connecter'}
-//  </button>
-//  </form>
-//  </div>
-//  );
-// }

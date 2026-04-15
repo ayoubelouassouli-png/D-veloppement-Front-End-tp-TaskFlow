@@ -3,81 +3,39 @@
   align-items: center;
   justify-content: space-between;
   height: 56px;
-  padding: 0 1.25rem;
+  padding: 0 1.5rem;
   background: #1B8C3E;
   color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  position: relative;
-  z-index: 10;
   flex-shrink: 0;
 }
 
-.left {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
+.left { display: flex; align-items: center; gap: 1rem; }
 
 .menuBtn {
-  background: transparent;
+  background: none;
   border: none;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   cursor: pointer;
-  padding: 0.4rem 0.5rem;
-  border-radius: 6px;
-  line-height: 1;
-  transition: background 0.15s;
-}
-
-.menuBtn:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.logo {
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: white;
-}
-
-.right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.userName {
-  font-size: 0.875rem;
-  font-weight: 500;
-  opacity: 0.95;
-}
-
-.logoutBtn {
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  color: white;
-  padding: 0.35rem 0.85rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.825rem;
-  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
   transition: background 0.2s;
 }
+.menuBtn:hover { background: rgba(255,255,255,0.15); }
 
-.logoutBtn:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
+.logo { font-size: 1.2rem; font-weight: 700; }
 
-.avatar {
-  width: 34px;
-  height: 34px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
+.right { display: flex; align-items: center; gap: 1rem; }
+.userName { font-size: 0.9rem; opacity: 0.9; }
+
+.logoutBtn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s;
 }
+.logoutBtn:hover { background: rgba(255,255,255,0.25); }

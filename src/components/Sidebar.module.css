@@ -1,190 +1,49 @@
 .sidebar {
   width: 240px;
-  min-width: 240px;
-  background: #ffffff;
-  border-right: 1px solid #e8e8e8;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: width 0.25s ease, min-width 0.25s ease, opacity 0.25s ease;
-  flex-shrink: 0;
-}
-
-.sidebar.closed {
-  width: 0;
-  min-width: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.sidebar.open {
-  width: 240px;
-  min-width: 240px;
-  opacity: 1;
-}
-
-.title {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #999;
-  padding: 1.25rem 1.25rem 0.6rem;
-}
-
-.list {
-  list-style: none;
-  padding: 0 0.6rem;
-  flex: 1;
-  overflow-y: auto;
-}
-
-/* Plain li item (Séance 1 & 2 style) */
-.item {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.55rem 0.65rem;
-  border-radius: 7px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #333;
-  cursor: pointer;
-  transition: background 0.15s;
-  text-decoration: none;
-}
-
-.item:hover {
-  background: #f4f4f4;
-}
-
-/* NavLink active style (Séance 3) */
-.active {
-  background: #e8f5ee;
-  color: #1B8C3E;
-  font-weight: 600;
-}
-
-.active:hover {
-  background: #ddf0e6;
-}
-
-.dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-/* Project row with rename/delete actions (shown on hover) */
-.projectRow {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.55rem 0.65rem;
-  border-radius: 7px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #333;
-  cursor: pointer;
-  transition: background 0.15s;
-  position: relative;
-}
-
-.projectRow:hover {
-  background: #f4f4f4;
-}
-
-.projectName {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.actions {
-  display: none;
-  align-items: center;
-  gap: 0.25rem;
-  flex-shrink: 0;
-}
-
-.projectRow:hover .actions {
-  display: flex;
-}
-
-.actionBtn {
-  background: transparent;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 0.2rem 0.45rem;
-  font-size: 0.72rem;
-  cursor: pointer;
-  color: #555;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
-  white-space: nowrap;
-}
-
-.actionBtn:hover {
-  background: #fff;
-  border-color: #bbb;
-  color: #222;
-}
-
-.actionBtnDelete {
-  composes: actionBtn;
-}
-
-.actionBtnDelete:hover {
-  background: #fff0f0;
-  border-color: #e57373;
-  color: #c0392b;
-}
-
-/* .sidebar {
-  width: 240px;
+  height: 100%;
   background: white;
-  border-right: 1px solid #ddd;
-  padding: 1rem;
+  border-right: 1px solid #e0e0e0;
+  padding: 1.5rem 1rem;
+  overflow-y: auto;
+  flex-shrink: 0;
   transition: margin-left 0.3s ease, opacity 0.3s ease;
 }
 
-/* Etat ouvert */
-/* .open {
-  margin-left: 0;
-  opacity: 1;
+.open  { margin-left: 0;      opacity: 1; }
+.closed { margin-left: -240px; opacity: 0; }
+
+.title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+  margin-bottom: 0.75rem;
 }
 
-/* Etat fermé */
-/* .closed {
-  margin-left: -240px;
-  opacity: 0;
-} */
-
-/* .title {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.list {
-  list-style: none;
-}
+.list { list-style: none; display: flex; flex-direction: column; gap: 0.25rem; }
 
 .item {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.5rem 0;
-  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem;
+  transition: background 0.15s;
 }
+.item:hover { background: #f5f5f5; }
 
-.item:hover {
-  opacity: 0.7;
+.active {
+  background: #e8f5e9;
+  color: #1B8C3E;
+  font-weight: 600;
 }
 
 .dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-} */
+  flex-shrink: 0;
+}

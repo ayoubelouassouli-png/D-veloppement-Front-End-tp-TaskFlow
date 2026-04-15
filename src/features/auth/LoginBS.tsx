@@ -1,26 +1,50 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 import { useAuth } from './AuthContext';
 import api from '../../api/axios';
 
 export default function LoginBS() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const { state, dispatch } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const from = (location.state as any)?.from || "/dashboard";
+
+  useEffect(() => {
+    //  if (state.user) navigate(from); // BUG
+    if (state.user) navigate(from, { replace: true });
+  }, [state.user, navigate, from]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    dispatch({ type: 'LOGIN_START' });
+
+    dispatch({ type: "LOGIN_START" });
+
     try {
       const { data: users } = await api.get(`/users?email=${email}`);
+
       if (users.length === 0 || users[0].password !== password) {
-        dispatch({ type: 'LOGIN_FAILURE', payload: 'Email ou mot de passe incorrect' });
+        dispatch({
+          type: "LOGIN_FAILURE",
+          payload: "Email ou mot de passe incorrect",
+        });
         return;
       }
+
       const { password: _, ...user } = users[0];
-      dispatch({ type: 'LOGIN_SUCCESS', payload: user });
+
+      dispatch({ type: "LOGIN_SUCCESS", payload: user });
     } catch {
-      dispatch({ type: 'LOGIN_FAILURE', payload: 'Erreur serveur' });
+      dispatch({
+        type: "LOGIN_FAILURE",
+        payload: "Erreur serveur",
+      });
     }
   }
 
